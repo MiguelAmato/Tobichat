@@ -3,7 +3,7 @@ import ThemeToggle from './ThemeToggle'
 import MessageList from './MessageList'
 import MessageInput from './MessageInput'
 import { API_KEY } from '../Utils'
-
+import { Bot } from 'lucide-react'
 
 /*
 	TobiChat.jsx
@@ -16,6 +16,7 @@ import { API_KEY } from '../Utils'
 
 function TobiChat() {
   const [messages, setMessages] = useState([])
+  const avatarUrl = "/public/TobiCon.png"
 
   const handleSendMessage = async (message) => {
     setMessages(prev => [...prev, { text: message, isUser: true }])
@@ -36,7 +37,7 @@ function TobiChat() {
 			body: JSON.stringify(data),
 			}
 		);
-		console.log(response);
+		
 		
 		const result = await response.json();
 		return (result[0].generated_text);
@@ -47,19 +48,26 @@ function TobiChat() {
 		return query(message);
 	}
   
-
   return (
-	/*
-	chat-container: Componente que contiene todos los elementos del chat, tanto header, lista de mensajes y el input
-	chat-header: Contiene el titulo del chat y el boton del cambio de modo claro a modo oscuro 
-	*/
-    <div className="chat-container">  
-      <header className="chat-header">
-        <h1>Tobichat</h1>
-        <ThemeToggle />
+    <div className="app-container">
+      <header className="app-header">
+        <h1>TobiChat</h1>
       </header>
-      <MessageList messages={messages} />
-      <MessageInput onSendMessage={handleSendMessage} />
+      <div className="main-content">
+        <div className="avatar-container">
+          <div className="avatar">
+            <img src = {avatarUrl} alt = "Bot avatar" className = "avatar-image" />
+          </div>
+        </div>
+        <div className="chat-container">
+          <div className="chat-header">
+            <h2>Chat</h2>
+            <ThemeToggle />
+          </div>
+          <MessageList messages={messages} />
+          <MessageInput onSendMessage={handleSendMessage} />
+        </div>
+      </div>
     </div>
   )
 }
