@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react'
+import { User, Bot } from 'lucide-react'
 
 function MessageList({ messages }) {
   const messagesEndRef = useRef(null)
+  const avatarUrl = "/public/TobiCon.png"
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -10,8 +12,17 @@ function MessageList({ messages }) {
   return (
     <div className="message-list">
       {messages.map((message, index) => (
-        <div key={index} className={`message ${message.isUser ? 'user' : 'bot'}`}>
-          {message.text}
+        <div key={index} className={`message-container ${message.isUser ? 'user' : 'bot'}`}>
+          <div className="message-icon">
+            {message.isUser ? (
+              <User size={24}/>
+            ) : (
+              <img src={avatarUrl} alt="Bot avatar" className="avatar-image-small" />
+            )}
+          </div>
+          <div className={`message ${message.isUser ? 'user' : 'bot'}`}>
+            {message.text}
+          </div>
         </div>
       ))}
       <div ref={messagesEndRef} />
