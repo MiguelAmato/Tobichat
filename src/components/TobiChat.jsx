@@ -15,6 +15,7 @@ import { Bot } from 'lucide-react'
 */
 
 function TobiChat() {
+  const OK_API = 200
   const [messages, setMessages] = useState([])
   const avatarUrl = "/public/TobiCon.png"
 
@@ -25,6 +26,13 @@ function TobiChat() {
     setMessages(prev => [...prev, { text: response, isUser: false }])
   }
 
+  /*
+    query: llamada a la API, hacemos fetch a la API de Hugging Face con nuestra API_KEY autorizada 
+    generada por la web de Hugging Face, verificamos que la respose de la API haya sido correcta
+    y si lo es, hacemos que la response sea un json que nos dará un array con un json, en ese json
+    tiene como unica clave "generated_text" que es la que contiene la respuesta al input que recibe
+    la API
+  */
 	const query = async (data) => {
 		const response = await fetch(
 			"https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill",
@@ -37,13 +45,19 @@ function TobiChat() {
 			body: JSON.stringify(data),
 			}
 		);
-		
-		
+    // Si la query no tiene de codigo de salida 200, significa que ha habido un error
+    // volvemos a lanzar la query hasta que de error.
+		if  (response.status != OK_API) {
+      query(data);
+    }
 		const result = await response.json();
 		return (result[0].generated_text);
 	};
 
-	// sendMessageToAPI: 
+  /*
+	sendMessageToAPI: metodo que recibe el input del usuario y llama a la API con el mismo para 
+  generar una respuesta.
+  */
 	const sendMessageToAPI = async (message) => {
 		return query(message);
 	}
