@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import ThemeToggle from './ThemeToggle'
 import MessageList from './MessageList'
 import MessageInput from './MessageInput'
-import { API_KEY } from '../Utils'
-import { Bot } from 'lucide-react'
 
 /*
 	TobiChat.jsx
@@ -16,6 +14,7 @@ import { Bot } from 'lucide-react'
 
 function TobiChat() {
   const OK_API = 200
+  const API_KEY = "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"
   const ERROR_MSG = "Error, please refresh!"
   const [messages, setMessages] = useState([])
   const avatarUrl = "/public/TobiCon.png"
@@ -55,11 +54,11 @@ function TobiChat() {
         error++
         query(data)
       } else {
+        error = 0
         return `${ERROR_MSG}`
       }
     } 
 		const result = await response.json()
-    return `${ERROR_MSG}`
 		return (result[0].generated_text)
 	};
 
