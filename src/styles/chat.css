@@ -6,6 +6,7 @@
 	--text-color: #1E3A8A;
 	--input-background: #F0F9FF;
 	--icon-color: #64748B;
+	--error-color: #f85e5e;
   }
   
   .dark-theme {
@@ -16,6 +17,7 @@
 	--text-color: #E0F2FE;
 	--input-background: #1E3A8A;
 	--icon-color: #94A3B8;
+	--error-color: #d8d800;
   }
   
   body {
@@ -168,6 +170,12 @@
   .message.bot {
 	background-color: var(--secondary-color);
 	color: var(--text-color);
+	border-bottom-left-radius: 0;
+  }
+
+  .message.error {
+	background-color: var(--secondary-color);
+	color: var(--error-color);
 	border-bottom-left-radius: 0;
   }
   

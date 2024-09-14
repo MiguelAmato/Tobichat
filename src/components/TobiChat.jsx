@@ -16,14 +16,17 @@ import { Bot } from 'lucide-react'
 
 function TobiChat() {
   const OK_API = 200
+  const ERROR_MSG = "Error, please refresh!"
   const [messages, setMessages] = useState([])
   const avatarUrl = "/public/TobiCon.png"
 
+  let error = 0
+
   const handleSendMessage = async (message) => {
-    setMessages(prev => [...prev, { text: message, isUser: true }])
+    setMessages(prev => [...prev, { text: message, isUser: true, error: false}])
     
     const response = await sendMessageToAPI(message)
-    setMessages(prev => [...prev, { text: response, isUser: false }])
+    setMessages(prev => [...prev, { text: response, isUser: false, error: (response == ERROR_MSG ? true : false)}])
   }
 
   /*
@@ -48,10 +51,16 @@ function TobiChat() {
     // Si la query no tiene de codigo de salida 200, significa que ha habido un error
     // volvemos a lanzar la query hasta que de error.
 		if  (response.status != OK_API) {
-      query(data);
-    }
-		const result = await response.json();
-		return (result[0].generated_text);
+      if (error < 5) {
+        error++
+        query(data)
+      } else {
+        return `${ERROR_MSG}`
+      }
+    } 
+		const result = await response.json()
+    return `${ERROR_MSG}`
+		return (result[0].generated_text)
 	};
 
   /*
