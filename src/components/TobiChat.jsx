@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import ThemeToggle from './ThemeToggle'
 import MessageList from './MessageList'
 import MessageInput from './MessageInput'
+import TobiCon from '../../public/TobiCon.png'
 
 /*
 	TobiChat.jsx
@@ -17,7 +18,7 @@ function TobiChat() {
   const API_KEY = "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"
   const ERROR_MSG = "Error, please refresh!"
   const [messages, setMessages] = useState([])
-  const avatarUrl = "/public/TobiCon.png"
+  const avatarUrl = "/TobiCon.png"
 
   let error = 0
 
@@ -78,7 +79,7 @@ function TobiChat() {
       <div className="main-content">
         <div className="avatar-container">
           <div className="avatar">
-            <img src = {avatarUrl} alt = "Bot avatar" className = "avatar-image" />
+            <img src = {TobiCon} alt = "Bot avatar" className = "avatar-image" />
           </div>
         </div>
         <div className="chat-container">
