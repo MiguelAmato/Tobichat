@@ -9,7 +9,7 @@ import TobiCon from '../../public/TobiCon.png'
 	
 	Componente del chat principal, aqui se produce la llamada a la API de Hugging Face y se 
 	le envia a los componentes de los mensajes la informacion de la llamada a la API para 
-	mostrarlos en pantalla hola
+	mostrarlos en pantalla
 
 */
 
