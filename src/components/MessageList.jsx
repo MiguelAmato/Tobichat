@@ -1,10 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 import { User, Bot } from 'lucide-react'
+import TobiCon from '../../public/TobiCon.png'
 
 function MessageList({ messages }) {
   const messagesEndRef = useRef(null)
-  const avatarUrl = "/TobiCon.png"
-  const error = "Error, please refresh!"
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -18,7 +17,7 @@ function MessageList({ messages }) {
             {message.isUser ? (
               <User size={24}/>
             ) : (
-              <img src={avatarUrl} alt="Bot avatar" className="avatar-image-small" />
+              <img src={TobiCon} alt="Bot avatar" className="avatar-image-small" />
             )}
           </div>
           <div className={`message ${message.error ? 'error' : (message.isUser ? 'user' : 'bot')}`}>
