@@ -17,7 +17,7 @@ function TobiChat() {
   const API_KEY = "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"
   const ERROR_MSG = "Error, please refresh!"
   const [messages, setMessages] = useState([])
-  const avatarUrl = "/public/TobiCon.png"
+  const avatarUrl = "/TobiCon.png"
 
   let error = 0
 

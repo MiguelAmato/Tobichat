@@ -3,7 +3,7 @@ import { User, Bot } from 'lucide-react'
 
 function MessageList({ messages }) {
   const messagesEndRef = useRef(null)
-  const avatarUrl = "/public/TobiCon.png"
+  const avatarUrl = "/TobiCon.png"
   const error = "Error, please refresh!"
 
   useEffect(() => {
