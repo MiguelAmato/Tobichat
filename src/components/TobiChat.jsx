@@ -14,6 +14,7 @@ import MessageInput from './MessageInput'
 
 function TobiChat() {
   const OK_API = 200
+  const API_KEY = "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"
   const ERROR_MSG = "Error, please refresh!"
   const avatarUrl = "/public/TobiCon.png"
   const API_KEY = "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"
