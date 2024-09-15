@@ -14,14 +14,20 @@ import TobiCon from '../../public/TobiCon.png'
 */
 
 function TobiChat() {
+  // Constante que indica el status OK de la API
   const OK_API = 200
+  // Clave que da la autorización a la API
   const API_KEY = "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"
+  // Mensaje de error
   const ERROR_MSG = "Error, please refresh!"
+  // El array de mensajes que sera actualizado mendiante un estado 
   const [messages, setMessages] = useState([])
-  const avatarUrl = "/TobiCon.png"
 
-  let error = 0
-
+  /*
+    Metodo que actualiza la lista de los mensajes, primero el input del usuario, que se manda el nuevo mensaje
+    con isUser a true y luego se hace la llamada a sendMessageToAPI que como su nombre indica envia el input
+    a la api, esta respuesta se añade a el array de mensajes.
+  */
   const handleSendMessage = async (message) => {
     setMessages(prev => [...prev, { text: message, isUser: true, error: false}])
     
@@ -48,16 +54,10 @@ function TobiChat() {
 			body: JSON.stringify(data),
 			}
 		);
-    // Si la query no tiene de codigo de salida 200, significa que ha habido un error
-    // volvemos a lanzar la query hasta que de error.
+    // Si la query no tiene de codigo de salida 200, significa que ha habido un error.
+    console.log(response)
 		if  (response.status != OK_API) {
-      if (error < 5) {
-        error++
-        query(data)
-      } else {
-        error = 0
         return `${ERROR_MSG}`
-      }
     } 
 		const result = await response.json()
 		return (result[0].generated_text)
@@ -68,9 +68,16 @@ function TobiChat() {
   generar una respuesta.
   */
 	const sendMessageToAPI = async (message) => {
-		return query(message);
+		return query(message)
 	}
-  
+
+  /*
+    Tenemos aqui el app container que se divide en el header y en el contenido principal,
+    el header solo tiene el titulo de la aplicación y el contenido principal se divide en dos
+    secciones, la seccion del avatar que es donde está el icono de la aplicación y luego el chat 
+    container que tiene el header del chat donde esta el boton de cambio de modo claro a oscuro,
+    luego la lista de los mensajes y la barra inferior con el input.
+  */
   return (
     <div className="app-container">
       <header className="app-header">
