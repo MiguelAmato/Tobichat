@@ -91,7 +91,7 @@ function TobiChat() {
         </div>
         <div className="chat-container">
           <div className="chat-header">
-            <h2>Chat</h2>
+            <h2>Chat with me!</h2>
             <ThemeToggle />
           </div>
           <MessageList messages={messages} />
