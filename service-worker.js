@@ -1,3 +1,4 @@
+/*
 const CACHE_NAME = 'tobichat-cache-v1';
 
 const urlsToCache = [
@@ -51,6 +52,7 @@ self.addEventListener('activate', (event) => {
         })
     );
 });
+*/
 
 /*
 self.addEventListener('push', (event) => {
