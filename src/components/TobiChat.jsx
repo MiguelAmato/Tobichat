@@ -23,12 +23,17 @@ function TobiChat() {
   // El array de mensajes que sera actualizado mendiante un estado 
   const [messages, setMessages] = useState([])
 
+  /*
+    Una vez renderizado el componente del chat, se llama a la funcion de solicitar permisos
+    de envío de notificación.
+  */
   useEffect(() => {
     if ('serviceWorker' in navigator && 'PushManager' in window) {
       requestNotificationPermission();
     }
   }, []);
 
+  // Funcion que pide permisos al usuario para que le lleguen notificaciones
   const requestNotificationPermission = async () => {
     try {
       const permission = await Notification.requestPermission();
@@ -40,6 +45,10 @@ function TobiChat() {
     }
   };
 
+  /*
+    Se le envía una notificación push al usuario con el mensaje dado por la API, se llama desde la funcion
+    handleMessages una vez se recibe la respuesta del modelo.
+  */
   const sendNotification = (message) => {
     if ('serviceWorker' in navigator && 'PushManager' in window) {
       navigator.serviceWorker.ready.then((registration) => {

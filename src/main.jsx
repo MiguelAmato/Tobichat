@@ -8,6 +8,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>
 )
 
+/*
+  Registra el service worker en el navegador para que haya uno en la aplicación
+*/
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/Tobichat/service-worker.js')
