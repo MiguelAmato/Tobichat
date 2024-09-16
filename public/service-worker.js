@@ -52,6 +52,7 @@ self.addEventListener('activate', (event) => {
     );
 });
 
+/*
 self.addEventListener('push', (event) => {
 	const options = {
 	  body: event.data.text(),
@@ -66,9 +67,47 @@ self.addEventListener('push', (event) => {
 
 self.addEventListener('notificationclick', (event) => {
 	event.notification.close();
-	/*
+	
 	event.waitUntil(
 	  clients.openWindow('/')
 	);
-	*/
+	
 });
+*/
+
+self.addEventListener('push', function(event) {
+	console.log('push');
+	const options = {
+	  body: event.data.text(),
+	  icon: '/TobiCon.png',
+	  badge: '/TobiCon.png',
+	  data: { url: 'https://miguelamato.github.io/Tobichat/' } // The URL of the page that triggered the notification
+	};
+  
+	event.waitUntil(
+	  self.registration.showNotification('Tobichat', options)
+	);
+  });
+  
+  self.addEventListener('notificationclick', function(event) {
+	event.notification.close(); // Close the notification
+  
+	event.waitUntil(
+	  clients.matchAll({
+		type: 'window',
+		includeUncontrolled: true // Include uncontrolled clients if needed
+	  }).then(function(clientList) {
+		for (let i = 0; i < clientList.length; i++) {
+		  const client = clientList[i];
+		  // Check if the page is already open by matching the URL
+		  if (client.url === event.notification.data.url && 'focus' in client) {
+			return client.focus(); // Focus the existing page
+		  }
+		}
+		// If the page is not open, open a new one
+		if (clients.openWindow) {
+		  return clients.openWindow(event.notification.data.url);
+		}
+	  })
+	);
+  });
