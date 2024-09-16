@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ThemeToggle from './ThemeToggle'
 import MessageList from './MessageList'
 import MessageInput from './MessageInput'
@@ -23,6 +23,34 @@ function TobiChat() {
   // El array de mensajes que sera actualizado mendiante un estado 
   const [messages, setMessages] = useState([])
 
+  useEffect(() => {
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      requestNotificationPermission();
+    }
+  }, []);
+
+  const requestNotificationPermission = async () => {
+    try {
+      const permission = await Notification.requestPermission();
+      if (permission !== 'granted') {
+        console.log('Notification permission denied');
+      }
+    } catch (error) {
+      console.error('Error requesting notification permission:', error);
+    }
+  };
+
+  const sendNotification = (message) => {
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      navigator.serviceWorker.ready.then((registration) => {
+        registration.showNotification('TobiChat', {
+          body: message,
+          icon: TobiCon,
+        }).catch((error) => {console.log(error)});
+      });
+    }
+  };
+
   /*
     Metodo que actualiza la lista de los mensajes, primero el input del usuario, que se manda el nuevo mensaje
     con isUser a true y luego se hace la llamada a sendMessageToAPI que como su nombre indica envia el input
@@ -33,6 +61,8 @@ function TobiChat() {
     
     const response = await sendMessageToAPI(message)
     setMessages(prev => [...prev, { text: response, isUser: false, error: (response == ERROR_MSG ? true : false)}])
+
+    sendNotification(response);
   }
 
   /*
@@ -86,7 +116,7 @@ function TobiChat() {
       <div className="main-content">
         <div className="avatar-container">
           <div className="avatar">
-            <img src = {TobiCon} alt = "Bot avatar" className = "avatar-image" />
+            <img src={TobiCon} alt="Bot avatar" className="avatar-image" />
           </div>
         </div>
         <div className="chat-container">
