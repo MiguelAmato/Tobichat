@@ -2,6 +2,8 @@
 
 Tobichat es un chat bot que usa el modelo "facebook/blenderbot-400M-distill" de Hugging Face para entablar una conversación casual en inglés con el usuario.
 
+Se implementó un Service Worker para que a la hora de que se reciba una respuesta de la API se envie una notificación push al usuario.
+
 En este link podrás acceder al chat: [Tobichat](http://MiguelAmato.github.io/Tobichat)
 
 Modelo usado: [facebook/blenderbot-400M-distill](https://huggingface.co/facebook/blenderbot-400M-distill)
@@ -88,3 +90,7 @@ Los componentes principales de la aplicación:
 - CSS
 
 chat.css: En cuanto al estilo se optó por un estilo simple que pueda ser responsive, tenemos una paleta de colores para el modo claro que esta en el className .root donde se definen colores como el fondo, el color de los textos, el color principal, el color secundario y tenemos otro className que es el del modo oscuro con las mismas variables pero con la paleta de colores respectiva, esto facilita el cambio ya que en los componentes solo hace falta poner el color de la variable y cuando se cambie de modo cambiarán también todas las variables de todos los componentes. Se buscaba que la aplicación sea lo mas sencilla posible para que el usuario pueda entender a primera vista que es un chat.
+
+- Service Worker y manifest.json
+
+Se ha implementado un service worker que se registra a la hora de iniciar la aplicacion, esto con el motivo de enviar una notificación push al usuario con la respuesta del modelo. Primero en el componente de TobiChat se maneja la notificacion y se envía, en el archivo de service-worker.js se maneja que a la hora de darle click a la notificación push se vuelva a abrir el chat.
