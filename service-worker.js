@@ -1,6 +1,5 @@
 const CACHE_NAME = 'tobichat-cache-v1';
 
-
 const urlsToCache = [
     '/',
     '/Tobichat/index.html',
@@ -20,7 +19,6 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then((cache) => {
-                console.log('Archivos en caché');
                 return cache.addAll(urlsToCache);
             })
     );
@@ -68,7 +66,9 @@ self.addEventListener('push', (event) => {
 
 self.addEventListener('notificationclick', (event) => {
 	event.notification.close();
+	/*
 	event.waitUntil(
 	  clients.openWindow('/')
 	);
+	*/
 });
