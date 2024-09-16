@@ -1,4 +1,6 @@
 const CACHE_NAME = 'tobichat-cache-v1';
+
+/*
 const urlsToCache = [
     '/',
     '/Tobichat/index.html',
@@ -11,6 +13,21 @@ const urlsToCache = [
     '/Tobichat/src/components/ThemeToggle.jsx',
     '/Tobichat/src/components/TobiChat.jsx',
     '/Tobichat/src/App.jsx'
+];
+*/
+
+const urlsToCache = [
+    '/',
+    '/index.html',
+    '/TobiCon.png',        
+    '/src/styles/chat.css', 
+    '/src/main.jsx',        
+    '/src/components/MessageInput.jsx',
+    '/src/components/MessageList.jsx',
+    '/src/components/ThemeContext.jsx',
+    '/src/components/ThemeToggle.jsx',
+    '/src/components/TobiChat.jsx',
+    '/src/App.jsx'
 ];
 
 self.addEventListener('install', (event) => {
